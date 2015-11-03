@@ -1,40 +1,4 @@
-/**
- * This code snippets can be use to create a javascript plugin
- * that can be use in jquery, and CommonJS Module
- * @author: Bryan
- */
- 
- /**
- * Base on https://github.com/desandro/jquery-bridget and https://github.com/seiyria/bootstrap-slider
- * 
- */
-
-
-/*! =========================================================
- * bootstrap-slider.js
- *
- * Maintainers:
- *		Kyle Kemp
- *			- Twitter: @seiyria
- *			- Github:  seiyria
- *		Rohit Kalkur
- *			- Twitter: @Rovolutionary
- *			- Github:  rovolution
- *
- * =========================================================
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================= */
+/* global HTMLElement, Person */
 
 /**
  * Bridget makes jQuery widgets
@@ -59,10 +23,10 @@
 		module.exports = factory(jQuery);
 	}
 	else {
-		root.MyPlugin = factory(root.jQuery);
+		root.Person = factory(root.jQuery);
 	}
 }(this,function($) {
-	var MyPlugin;
+	var Person;
 
 	(function( $ ) {
 
@@ -200,13 +164,20 @@
 
 	(function($){
 
-		/*------------ Constructor -------------*/
-		MyPlugin = function(element, options) {
-			createNewMyPlugin.call(this, element, options);
+		/**
+		 * @class Person
+		 * @param {String|HTMLElement} element
+		 * @param {Object} options
+		 * @param {String} options.name Name of person
+		 * @param {String} options.age Age of person
+		 * @returns {Person}
+		 */
+		Person = function(element, options) {
+			createNewPerson.call(this, element, options);
 			return this;
 		};
 
-		function createNewMyPlugin(element, options) {
+		function createNewPerson(element, options) {
 
 			if(typeof element === "string") {
 				this.element = document.querySelector(element);
@@ -251,18 +222,49 @@
 
 		}
 
-		MyPlugin.prototype = {
+		/**
+		 * @memberOf Person
+		 */
+		Person.prototype = {
+
 			_init: function() {}, // NOTE: Must exist to support bridget
-			constructor: MyPlugin,
+
+			constructor: Person,
+
 			defaultOptions: {
-
+				name:'no name',
 			},
 
-			getMethod1: function() {
-				return 'method 1';
+			/**
+			 * Get the name of person
+			 * @returns {String} name
+			 */
+			getName: function() {
+				return this.options.name;
 			},
-			getMethod2: function() {
-				return 'method2';
+
+			/**
+			 * Set the name of Person
+			 * @param {String} name Name of Person
+			 */
+			setName: function(name) {
+				this.options.name = name;
+			},
+
+			/**
+			 * Get the age of Person
+			 * @returns {Integer}
+			 */
+			getAge: function() {
+				return this.options.age;
+			},
+
+			/**
+			 * Set the age of person
+			 * @param {Integer} age Age of Person
+			 */
+			setAge: function(age) {
+				this.options.age = age;
 			}
 		};
 
@@ -270,11 +272,11 @@
 			Attach to global namespace
 		*********************************/
 		if($) {
-			var namespace = $.fn.MyPlugin ? 'MyPlugin2' : 'MyPlugin';
-			$.bridget(namespace, MyPlugin);
+			var namespace = $.fn.Person ? 'Person2' : 'Person';
+			$.bridget(namespace, Person);
 		}
 
 	})($);
 
-	return MyPlugin;
+	return Person;
 }));
