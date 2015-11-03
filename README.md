@@ -1,53 +1,53 @@
 # jquery-plugin-boilerplate
 Template for jquery plugin. Support CommonJS module, with/without jquery
 
-#Using MyPlugin (with JQuery)
+#Using Person (with JQuery)
 ```javascript
-var myPlugin = $("#IDSelector").MyPlugin();
+var person = $("#IDSelector").Person();
 
 // Call a method on the MyPlugin
-var value = myPlugin.MyPlugin('getMethod1');
+var name = person.Person('getName');
 
 // For non-getter methods, you can chain together commands
-    myPlugin
-        .slider('setValue', 5)
-        .slider('setValue', 7);
+    person
+        .Person('setName', 'Juan')
+        .Person('setAge', 7);
 ```
-#Using MyPlugin (without JQuery)
+#Using Person (without JQuery)
 ```javascript
 
-// Instantiate a myplugin
-var myPlugin = new MyPlugin("#selector", {
+// Instantiate a Person
+var person = new Person("#selector", {
     // initial options object
 });
 
-// Call a method on the MyPlugin
-var value = myPlugin.getValue();
+// Call a method on the Person
+var name = person.getName();
 
 // For non-getter methods, you can chain together commands
-myPlugin
-    .setValue(5)
-    .setValue(7);
+person
+    .setName('Juan')
+    .setAge(7);
 ```
 
 #Using as CommonJS module
 ```javascript
-var MyPlugin = require("MyPlugin");
-var myPlugin = new MyPlugin();
+var Person = require("Person");
+var person = new Person();
 ```
 
-#What if there is already a MyPlugin plugin bound to the JQuery namespace?
+#What if there is already a Person plugin bound to the JQuery namespace?
 ```javascript
-// Instantiate a MyPlugin
-var myPlugin = $("#selector").MyPlugin2();
+// Instantiate a Person
+var person = $("#selector").Person2();
 
 // Call a method on the slider
-var value = myPlugin.MyPlugin2('getValue');
+var value = person.Person2('getName');
 
 // For non-getter methods, you can chain together commands
-    myPlugin
-        .MyPlugin2('setValue', 5)
-        .MyPlugin2('setValue', 7);
+    person
+        .Person2('setName', 'Juan')
+        .Person2('setAge', 7);
 ```
 
 
